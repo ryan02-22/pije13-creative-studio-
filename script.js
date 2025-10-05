@@ -157,23 +157,49 @@ document.addEventListener('DOMContentLoaded', function() {
     function submitForm() {
         const submitButton = document.querySelector('.submit-button');
         const originalText = submitButton.textContent;
-        
-        // Show loading state
+
+        // Collect form data
+        const name = document.getElementById('name')?.value.trim() || '';
+        const email = document.getElementById('email')?.value.trim() || '';
+        const phone = document.getElementById('phone')?.value.trim() || '';
+        const message = document.getElementById('message')?.value.trim() || '';
+
+        // Compose message
+        const subject = `Kontak Portfolio - ${name || 'Tanpa Nama'}`;
+        const bodyLines = [
+            `Nama: ${name}`,
+            `Email: ${email}`,
+            `Telepon: ${phone}`,
+            '',
+            'Pesan:',
+            message
+        ];
+        const body = bodyLines.join('%0D%0A'); // CRLF for mailto
+
+        // MAILTO
+        const mailtoHref = `mailto:fatchurrozaq.pj11@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+        // WHATSAPP
+        const waText = [`Halo, saya ${name || ''}.`, '', 'Detail Kontak:', `Email: ${email}`, `Telepon: ${phone}`, '', 'Pesan:', message].join('\n');
+        const waHref = `https://wa.me/6289604072195?text=${encodeURIComponent(waText)}`;
+
+        // Loading UI
         submitButton.textContent = 'Mengirim...';
         submitButton.disabled = true;
 
-        // Simulate form submission (replace with actual form handling)
-        setTimeout(() => {
-            // Show success message
-            showSuccessMessage();
-            
-            // Reset form
-            contactForm.reset();
-            
-            // Reset button
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        }, 2000);
+        // Open channels
+        try {
+            window.open(mailtoHref, '_blank');
+            window.open(waHref, '_blank');
+        } catch (err) {
+            console.error('Failed to open mail/whatsapp:', err);
+        }
+
+        // Feedback
+        showSuccessMessage();
+        contactForm.reset();
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
     }
 
     function showSuccessMessage() {
