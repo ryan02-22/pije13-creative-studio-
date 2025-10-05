@@ -187,15 +187,38 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.textContent = 'Mengirim...';
         submitButton.disabled = true;
 
-        // Open channels
+        // Open channels (optimize to avoid popup blockers)
         try {
-            window.open(mailtoHref, '_blank');
-            window.open(waHref, '_blank');
+            console.log('Opening WhatsApp:', waHref);
+            const waWin = window.open(waHref, '_blank');
+
+            // Navigate current tab to mailto (not a popup)
+            console.log('Navigating to mailto:', mailtoHref);
+            window.location.href = mailtoHref;
+
+            // Fallbacks if popup blocked
+            if (!waWin) {
+                setTimeout(() => {
+                    window.location.assign(waHref);
+                }, 800);
+            }
         } catch (err) {
             console.error('Failed to open mail/whatsapp:', err);
+            // Final fallback: show the links so user can click manually
+            const fallback = document.createElement('div');
+            fallback.style.marginTop = '1rem';
+            fallback.innerHTML = `
+                <div style="background:#222;border:1px solid #444;padding:0.75rem;border-radius:6px;color:#fff;">
+                    Tidak bisa membuka Email/WhatsApp secara otomatis. Klik manual:
+                    <div style="margin-top:0.5rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+                        <a href="${mailtoHref}" style="background:#FFFF00;color:#000;padding:0.5rem 0.75rem;border-radius:6px;text-decoration:none;font-weight:600;">Buka Email</a>
+                        <a href="${waHref}" target="_blank" style="background:#FFFF00;color:#000;padding:0.5rem 0.75rem;border-radius:6px;text-decoration:none;font-weight:600;">Buka WhatsApp</a>
+                    </div>
+                </div>`;
+            contactForm.parentNode.insertBefore(fallback, contactForm.nextSibling);
         }
 
-        // Feedback
+        // Feedback (tetap tampilkan agar user tahu tindakan berhasil diproses)
         showSuccessMessage();
         contactForm.reset();
         submitButton.textContent = originalText;
