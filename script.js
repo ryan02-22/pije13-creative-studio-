@@ -164,37 +164,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const phone = document.getElementById('phone')?.value.trim() || '';
         const message = document.getElementById('message')?.value.trim() || '';
 
-        // Compose message
-        const subject = `Kontak Portfolio - ${name || 'Tanpa Nama'}`;
-        const bodyLines = [
-            `Nama: ${name}`,
-            `Email: ${email}`,
-            `Telepon: ${phone}`,
-            '',
-            'Pesan:',
-            message
-        ];
-        const body = bodyLines.join('%0D%0A'); // CRLF for mailto
-
-        // MAILTO
-        const mailtoHref = `mailto:fatchurrozaq.pj11@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
         // WHATSAPP
         const waText = [`Halo, saya ${name || ''}.`, '', 'Detail Kontak:', `Email: ${email}`, `Telepon: ${phone}`, '', 'Pesan:', message].join('\n');
-        const waHref = `https://wa.link/1knfzt?text=${encodeURIComponent(waText)}`;
+        const waHref = `https://wa.me/6289604072195?text=${encodeURIComponent(waText)}`;
 
         // Loading UI
         submitButton.textContent = 'Mengirim...';
         submitButton.disabled = true;
 
-        // Open channels (optimize to avoid popup blockers)
+        // Open WhatsApp only (optimize to avoid popup blockers)
         try {
             console.log('Opening WhatsApp:', waHref);
             const waWin = window.open(waHref, '_blank');
-
-            // Navigate current tab to mailto (not a popup)
-            console.log('Navigating to mailto:', mailtoHref);
-            window.location.href = mailtoHref;
 
             // Fallbacks if popup blocked
             if (!waWin) {
@@ -203,15 +184,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 800);
             }
         } catch (err) {
-            console.error('Failed to open mail/whatsapp:', err);
+            console.error('Failed to open whatsapp:', err);
             // Final fallback: show the links so user can click manually
             const fallback = document.createElement('div');
             fallback.style.marginTop = '1rem';
             fallback.innerHTML = `
                 <div style="background:#222;border:1px solid #444;padding:0.75rem;border-radius:6px;color:#fff;">
-                    Tidak bisa membuka Email/WhatsApp secara otomatis. Klik manual:
+                    Tidak bisa membuka WhatsApp secara otomatis. Klik manual:
                     <div style="margin-top:0.5rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
-                        <a href="${mailtoHref}" style="background:#FFFF00;color:#000;padding:0.5rem 0.75rem;border-radius:6px;text-decoration:none;font-weight:600;">Buka Email</a>
                         <a href="${waHref}" target="_blank" style="background:#FFFF00;color:#000;padding:0.5rem 0.75rem;border-radius:6px;text-decoration:none;font-weight:600;">Buka WhatsApp</a>
                     </div>
                 </div>`;
