@@ -220,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Header scroll effect
     let lastScrollTop = 0;
     const header = document.querySelector('.header');
+    const backToTopBtn = document.querySelector('.back-to-top');
     
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -232,8 +233,21 @@ document.addEventListener('DOMContentLoaded', function() {
             header.style.transform = 'translateY(0)';
         }
         
+        // Back to top visibility
+        if (backToTopBtn) {
+            if (scrollTop > 300) backToTopBtn.classList.add('show');
+            else backToTopBtn.classList.remove('show');
+        }
+
         lastScrollTop = scrollTop;
     });
+
+    // Back to Top click
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 
     // Intersection Observer for animations
     const observerOptions = {

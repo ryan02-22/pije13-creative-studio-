@@ -80,6 +80,7 @@
     <meta name="msapplication-TileColor" content="#000000">
 </head>
 <body>
+    <a href="#portfolio" class="skip-link">Lewati ke konten</a>
     <!-- Header Section -->
     <header class="header" role="banner">
         <nav class="nav" role="navigation" aria-label="Main navigation">
@@ -90,6 +91,7 @@
                 <ul class="nav-menu" role="menubar">
                     <li role="none"><a href="#home" role="menuitem" class="nav-link">Beranda</a></li>
                     <li role="none"><a href="#portfolio" role="menuitem" class="nav-link">Portfolio</a></li>
+                    <li role="none"><a href="#experience" role="menuitem" class="nav-link">Pengalaman</a></li>
                     <li role="none"><a href="#services" role="menuitem" class="nav-link">Keahlian</a></li>
                     <li role="none"><a href="#about" role="menuitem" class="nav-link">Tentang</a></li>
                     <li role="none"><a href="#contact" role="menuitem" class="nav-link">Kontak</a></li>
@@ -119,6 +121,42 @@
             <button class="cta-button" onclick="scrollToSection('portfolio')">
                 Lihat Karya Saya
             </button>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience" aria-label="Riwayat Pengalaman">
+        <div class="container">
+            <h2 class="section-title">Pengalaman</h2>
+            <p class="section-subtitle">Ringkasan peran dan proyek yang pernah saya tangani</p>
+
+            <div class="experience-timeline">
+                <article class="exp-item">
+                    <h3 class="exp-role">Senior Editor</h3>
+                    <div class="exp-meta">Leika Garudita • Jan 2025 – Sep 2025</div>
+                    <p class="exp-desc">Editing film pernikahan dan konten komersial dengan standar sinematik.</p>
+                </article>
+                <article class="exp-item">
+                    <h3 class="exp-role">Head Creative</h3>
+                    <div class="exp-meta">Kelas Bertumbuh • Des 2023 – Des 2024</div>
+                    <p class="exp-desc">Perencanaan konsep konten, arahan visual, dan produksi materi edukasi.</p>
+                </article>
+                <article class="exp-item">
+                    <h3 class="exp-role">Videographer</h3>
+                    <div class="exp-meta">Setara Media • Jan 2024 – Des 2024</div>
+                    <p class="exp-desc">Produksi video kampanye digital dan dokumentasi acara.</p>
+                </article>
+                <article class="exp-item">
+                    <h3 class="exp-role">Editor</h3>
+                    <div class="exp-meta">Film Pendek "SRININGSIH"</div>
+                    <p class="exp-desc">Penataan ritme, color mood, dan penyusunan alur cerita visual.</p>
+                </article>
+                <article class="exp-item">
+                    <h3 class="exp-role">Creative Design</h3>
+                    <div class="exp-meta">Film Pendek "POCOMPONG"</div>
+                    <p class="exp-desc">Pengembangan identitas visual dan elemen grafis pendukung.</p>
+                </article>
+            </div>
         </div>
     </section>
 
@@ -317,6 +355,9 @@
                         khususnya dalam produksi konten, visual storytelling, dan eksplorasi media baru untuk menghasilkan 
                         karya yang relevan dan bernilai.
                     </p>
+                    <div class="about-actions">
+                        <a class="download-cv" href="cv/Fatchurrozaq_CV.pdf" target="_blank" rel="noopener noreferrer">Unduh CV</a>
+                    </div>
                     <div class="about-stats">
                         <div class="stat-item">
                             <div class="stat-number">4+</div>
@@ -330,6 +371,13 @@
                             <div class="stat-number">4</div>
                             <div class="stat-label">Core Skills</div>
                         </div>
+                    </div>
+                    <div class="skills-chips" aria-label="Keahlian Utama">
+                        <span class="chip">Video Editing</span>
+                        <span class="chip">Videography</span>
+                        <span class="chip">Photography</span>
+                        <span class="chip">Creative Design</span>
+                        <span class="chip">Visual Storytelling</span>
                     </div>
                 </div>
                 <div class="about-image">
@@ -493,6 +541,8 @@
             </div>
         </div>
     </footer>
+
+    <button class="back-to-top" aria-label="Kembali ke atas">↑</button>
 
     <script src="script.js"></script>
 </body>
