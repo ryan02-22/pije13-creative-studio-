@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // WHATSAPP
         const waText = [`Halo, saya ${name || ''}.`, '', 'Detail Kontak:', `Email: ${email}`, `Telepon: ${phone}`, '', 'Pesan:', message].join('\n');
-        const waHref = `https://wa.me/6289604072195?text=${encodeURIComponent(waText)}`;
+        const waHref = `https://wa.link/1knfzt?text=${encodeURIComponent(waText)}`;
 
         // Loading UI
         submitButton.textContent = 'Mengirim...';
