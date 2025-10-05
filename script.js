@@ -116,13 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Service validation
-        const service = document.getElementById('service');
-        if (!service.value) {
-            showError('service', 'Pilih jenis layanan');
-            isValid = false;
-        }
-
         // Message validation
         const message = document.getElementById('message');
         if (!message.value.trim()) {
@@ -155,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             error.style.display = 'none';
         });
 
-        const formInputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+        const formInputs = document.querySelectorAll('.form-input, .form-textarea');
         formInputs.forEach(input => {
             input.style.borderColor = '';
         });
