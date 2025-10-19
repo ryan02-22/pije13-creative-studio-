@@ -293,13 +293,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.skill-item, .portfolio-item');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
+    // Enhanced scroll animations with staggered effects
+    const staggerObserver = new IntersectionObserver(function(entries) {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('animate-in');
+                }, index * 100); // Staggered delay
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Apply staggered animation to skill items
+    const skillItems = document.querySelectorAll('.skill-item');
+    skillItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        staggerObserver.observe(item);
+    });
+
+    // Parallax effect for hero content
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const heroContent = document.querySelector('.hero-content');
+        const particles = document.querySelector('.floating-particles');
+        
+        if (heroContent && scrolled < window.innerHeight) {
+            heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+        
+        if (particles && scrolled < window.innerHeight) {
+            particles.style.transform = `translateY(${scrolled * 0.3}px)`;
+        }
     });
 
     // Skill bar animation
