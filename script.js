@@ -294,13 +294,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial');
+    const animatedElements = document.querySelectorAll('.skill-item, .portfolio-item');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+
+    // Skill bar animation
+    const skillBars = document.querySelectorAll('.skill-progress');
+    const skillObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillBar = entry.target;
+                const width = skillBar.getAttribute('data-width');
+                
+                // Animate the skill bar
+                setTimeout(() => {
+                    skillBar.style.width = width + '%';
+                }, 200);
+                
+                // Animate the percentage counter
+                const percentageElement = skillBar.closest('.skill-item').querySelector('.skill-percentage');
+                animateCounter(percentageElement, 0, parseInt(width), 2000);
+                
+                skillObserver.unobserve(skillBar);
+            }
+        });
+    }, {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    skillBars.forEach(bar => {
+        skillObserver.observe(bar);
+    });
+
+    // Counter animation function
+    function animateCounter(element, start, end, duration) {
+        const startTime = performance.now();
+        
+        function updateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const current = Math.round(start + (end - start) * easeOutQuart);
+            
+            element.textContent = current + '%';
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            }
+        }
+        
+        requestAnimationFrame(updateCounter);
+    }
 
     // Video lazy loading
     const videos = document.querySelectorAll('video[data-src]');
